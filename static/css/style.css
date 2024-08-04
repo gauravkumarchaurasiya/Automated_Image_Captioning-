@@ -1,0 +1,214 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-theme {
+    background-color: #333;
+    color: #f4f4f9;
+}
+
+.light-theme {
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.dark-theme .container {
+    background: #444;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.file-drop-area {
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.file-drop-area.dragover {
+    border-color: #007bff;
+}
+
+.choose-file-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.file-input {
+    display: none;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+#loading {
+    display: none;
+    text-align: center;
+    font-size: 18px;
+    color: #007bff;
+}
+
+#result {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.caption {
+    font-size: 20px;
+    color: #079824;
+    margin-top: 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    border-bottom: 2px solid #0056b3;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.github-icon {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.github-icon:hover {
+    color: #f4f4f9;
+}
+
+.theme-switch {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5);
+}
+
+.theme-switch label {
+    cursor: pointer;
+}
+
+#file-info{
+    margin: 10px;
+    font-size: 17px;
+}
+p{
+    text-align: center;
+    margin-top: -10px;
+}
+@media (max-width: 1200px) {
+    .container {
+        max-width: 90%;
+        margin: 40px auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 95%;
+        margin: 30px auto;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header .github-icon {
+        margin-top: 10px;
+    }
+    .theme-switch{  
+        margin-top: 10px;
+    }
+
+    .file-drop-area {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .choose-file-button, .submit-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .choose-file-button, .submit-btn {
+        font-size: 12px;
+        padding: 10px;
+        width: 90%;
+    }
+}

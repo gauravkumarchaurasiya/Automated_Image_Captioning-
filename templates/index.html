@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Image Captioning</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class="light-theme">
+    <header>
+        <h1>Automated Image Captioning</h1>
+        <div class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle">Dark Mode</label>
+        </div>
+        <a href="https://github.com/gauravkumarchaurasiya" target="_blank" class="github-icon">
+            <i class="fab fa-github"></i> Go to Repo
+        </a>
+    </header>
+    <div class="container">
+        <h2>Upload an Image to Generate a Caption by Model</h2>
+        <form id="upload-form" action="/upload/" enctype="multipart/form-data" method="post">
+            <div class="file-drop-area">
+                <span class="choose-file-button">Choose Image</span>
+                <span class="file-message">or drag and drop here</span>
+                <input class="file-input" type="file" name="file" required>
+            </div>
+            <input class="submit-btn" type="submit" value="Generate">
+        </form>
+        <div id="loading" class="loading">Generating caption...</div>
+        <div id="result"></div>
+    </div>
+    <script>
+        const form = document.getElementById('upload-form');
+        const fileInput = document.querySelector('.file-input');
+        const fileDropArea = document.querySelector('.file-drop-area');
+        const loadingIndicator = document.getElementById('loading');
+        const resultDiv = document.getElementById('result');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                const fileName = fileInput.files[0].name;
+                fileDropArea.querySelector('.file-message').textContent = fileName;
+            }
+        });
+
+        fileDropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            fileDropArea.classList.add('dragover');
+        });
+
+        fileDropArea.addEventListener('dragleave', () => {
+            fileDropArea.classList.remove('dragover');
+        });
+
+        fileDropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            fileDropArea.classList.remove('dragover');
+            const files = event.dataTransfer.files;
+            fileInput.files = files;
+            if (files.length > 0) {
+                const fileName = files[0].name;
+                fileDropArea.querySelector('.file-message').textContent = fileName;
+            }
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (fileInput.files.length === 0) {
+                alert("Please select an image file before submitting.");
+                return;
+            }
+            loadingIndicator.style.display = 'block';
+            resultDiv.innerHTML = '';
+            const formData = new FormData(form);
+            const response = await fetch('/upload/', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            loadingIndicator.style.display = 'none';
+            resultDiv.innerHTML = `
+                <div class="caption">Generated Caption: ${result.caption}</div>
+                <img src="${URL.createObjectURL(formData.get('file'))}" alt="Uploaded Image">
+            `;
+        });
+
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                document.body.classList.add('dark-theme');
+                document.body.classList.remove('light-theme');
+            } else {
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme');
+            }
+        });
+    </script>
+</body>
+</html>
